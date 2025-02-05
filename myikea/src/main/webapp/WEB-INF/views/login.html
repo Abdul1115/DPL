@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Accede a Mylkea</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="/">Mylkea</a>
+        <div class="collapse navbar-collapse">
+            <div class="ms-auto">
+                <a href="/registro" class="btn btn-outline-light me-2">Registro</a>
+                <a href="/login" class="btn btn-outline-light">Entrar</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Contenido principal -->
+<div class="container mt-5">
+    <h1 class="mb-4">Accede a Mylkea</h1>
+    <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Usuario</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Introduce tu correo" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Introduce tu contraseña" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Entrar</button>
+        <span class="ms-2">
+      o <a href="/registro">Registro</a>
+    </span>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

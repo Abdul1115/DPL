@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Inicio - MyIkea</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<!-- Barra de navegación -->
+<nav class="navbar navbar-expand-lg navbar-light bg-primary text-white">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white" href="/">Mylkea</a>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Si el usuario está autenticado, muestra el enlace "Muebles" -->
+        <li class="nav-item" th:if="${email != null}">
+          <a class="nav-link text-white" href="/productos">Muebles</a>
+        </li>
+        <!-- Solo mostrar "Pedidos", "Carrito" y "Usuarios" si el usuario tiene rol ADMIN -->
+        <li class="nav-item" th:if="${isAdmin}">
+          <a class="nav-link text-white" href="/pedidos">Pedidos</a>
+        </li>
+        <li class="nav-item" th:if="${isAdmin}">
+          <a class="nav-link text-white" href="/carrito">Carrito</a>
+        </li>
+        <li class="nav-item" th:if="${isAdmin}">
+          <a class="nav-link text-white" href="/users">Usuarios</a>
+        </li>
+      </ul>
+      <!-- Botones de registro y login si el usuario no está autenticado -->
+      <a href="/registro" class="btn btn-secondary me-2" th:if="${email == null}">Registro</a>
+      <a href="/login" class="btn btn-outline-light me-2" th:if="${email == null}">Entrar</a>
+      <!-- Mostrar el correo del usuario autenticado -->
+      <span class="navbar-text text-white me-3" th:if="${email != null}">
+        <strong th:text="${email}"></strong>
+      </span>
+      <!-- Botón de logout si el usuario está autenticado -->
+      <a href="/logout" class="btn btn-outline-light" th:if="${email != null}">Salir</a>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- Contenido principal -->
+<div class="container mt-5">
+  <h1>Bienvenido a MyIkea</h1>
+  <p class="lead">Tu tienda de muebles y decoración online.</p>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
