@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{../fragments/head::head}"><title></title></head>
+<br><br><br>
+<nav th:replace="~{../fragments/top::menu}"></nav>
+<br>
+    <h1>Te Damos la Bienvenida</h1>
+    <div class="container-fluid pt-3">
+        <button  class="btn btn-success" onclick="window.open('/create')">Agrega Animal&nbsp;<i class="bi bi-plus-circle"></i></button>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Vida Media</th>
+                <th>Está Extinguido</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="a: ${animales}">
+                <tr>
+                    <td th:text="${a.getId()}"></td>
+                    <td th:text="${a.getName()}"></td>
+                    <td th:text="${a.getAge()}"></td>
+                    <!--<td th:text="${a.getExtinct()}"></td>-->
+
+                    <td th:if="${!a.getExtinct()}" th:utext="'<b>NO</b>'"></td>
+
+                    <td th:unless="${!a.getExtinct()}" th:utext="'<b>Sí</b>'"></td>
+
+                    <td><a class="btn btn-primary" th:href="@{/details/{id}(id=${a.getId()})}">Detalles&nbsp;<i class="bi bi-info-circle"></i></a>&nbsp;&nbsp;<a class="btn btn-secondary" th:href="@{/update/{id}(id=${a.getId()})}">Actualizar&nbsp;<i class="bi bi-arrow-up-square"></i></a>&nbsp;&nbsp;<a class="btn btn-danger" th:href="@{/delete/{id}(id=${a.getId()})}">Eliminar&nbsp;<i class="bi bi-x-circle"></i></a></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+<footer th:replace="~{../fragments/footer::footer}"></footer>

@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{../fragments/head::head}"><title></title></head>
+<br><br><br>
+<nav th:replace="~{../fragments/top::menu}"></nav>
+<br>
+<h1>Agregar un Animal</h1>
+<form action="#" th:action="@{/create}" th:object="${animal}" method="post">
+    <fieldset>
+        <legend>Datos del Animal</legend>
+            <input id="name" type="text" th:field="*{name}" required/><label for="name"> &nbsp;&nbsp;Nombre</label>
+            <br><br>
+            <input id="age" type="text" th:field="*{age}" required/><label for="age"> &nbsp;&nbsp;Edad</label>
+            <br><br>
+            <input id="extinct" type="checkbox" th:field="*{extinct}" /><label for="extinct"> &nbsp;&nbsp;Extinguido</label>
+            <br><br>
+            <input type="submit" value="Enviar" class="btn btn-success btn-lg"/>
+    </fieldset>
+</form>
+<footer th:replace="~{../fragments/footer::footer}"></footer>

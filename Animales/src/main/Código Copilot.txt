@@ -1,0 +1,140 @@
+Script de Copilot para generar los Detalles de un Objeto de una lista:
+
+Modelo de la Clase:
+
+package com.example.demo.model;
+
+public class Person {
+    private Long id;
+    private String name;
+    private int age;
+    private boolean isAlive;
+
+    // Getters y setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
+}
+
+
+Controlador:
+
+package com.example.demo.controller;
+
+import com.example.demo.model.Person;
+import com.example.demo.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@Controller
+public class PersonController {
+
+    @Autowired
+    private PersonService personService;
+
+    @GetMapping("/person/{id}")
+    public String getPersonDetails(@PathVariable Long id, Model model) {
+        Person person = personService.getPersonById(id);
+        model.addAttribute("person", person);
+        return "personDetails";
+    }
+	
+	@GetMapping("/{id}")
+    public String getPersonDetails(@PathVariable Long id, Model model) {
+        Person person = personService.getPersonById(id);
+        model.addAttribute("person", person);
+        return "personDetails";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePerson(@PathVariable Long id) {
+        personService.deletePersonById(id);
+        return "redirect:/";
+}
+
+
+Servicio:
+
+package com.example.demo.service;
+
+import com.example.demo.model.Person;
+import com.example.demo.repository.PersonRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PersonService {
+
+    @Autowired
+    private PersonRepository personRepository;
+
+    public Person getPersonById(Long id) {
+        return personRepository.findById(id).orElse(null);
+    }
+	
+	public void deletePersonById(Long id) {
+        personRepository.deleteById(id);
+    }
+}
+
+
+Interface:
+
+package com.example.demo.repository;
+
+import com.example.demo.model.Person;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PersonRepository extends JpaRepository<Person, Long> {
+}
+
+
+Vista:
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles de la Persona</title>
+</head>
+<body>
+    <h1>Detalles de la Persona</h1>
+    <p>ID: <span th:text="${person.id}"></span></p>
+    <p>Nombre: <span th:text="${person.name}"></span></p>
+    <p>Edad: <span th:text="${person.age}"></span></p>
+    <p>Está vivo: <span th:text="${person.isAlive}"></span></p>
+    <a href="/">Volver a la lista</a>
+</body>
+</html>

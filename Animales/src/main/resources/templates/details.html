@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{../fragments/head::head}"><title></title></head>
+<br><br><br>
+<nav th:replace="~{../fragments/top::menu}"></nav>
+<br>
+<h1>Detalles del Animal</h1>
+<ul>
+    <li th:utext="'ID: ' + '<b>' + ${animal.getId()} + '</b>'"></li>
+    <li th:utext="'Nombre: ' + '<b>' + ${animal.getName()} + '</b>'"></li>
+    <li th:utext="'Años de Vida: ' + '<b>' + ${animal.getAge()} + '</b>'"></li>
+    <!--<li th:if="${animal.getExtinct()}" th:utext="'Está Extinguido: ' + '<b>' + ${animal.getExtinct()} + '</b>'"></li>-->
+
+    <li th:if="${!animal.getExtinct()}" th:utext="'Está Extinguido: ' + '<b>NO</b>'"></li>
+
+    <!--<li th:unless="${animal.getExtinct()}" th:utext="'Está Extinguido: ' + '<b>' + ${animal.getExtinct()} + '</b>'"></li>-->
+
+    <li th:unless="${!animal.getExtinct()}" th:utext="'Está Extinguido: ' + '<b>Está Extinguido</b>'"></li>
+</ul>
+<footer th:replace="~{../fragments/footer::footer}"></footer>
